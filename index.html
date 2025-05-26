@@ -35,42 +35,54 @@
                 <!-- Welcome Section -->
                 <div id="welcome-section" class="bg-slate-800 rounded-lg p-6 text-center border border-slate-700">
                     <h2 class="text-2xl mb-4 text-green-400">Welcome Hunter!</h2>
-                    <p class="text-slate-300 mb-6">Track your hunting progress across all COTW maps. Log kills, diamonds, rares, and Great Ones!</p>
+                    <p class="text-slate-300 mb-6">Track your hunting progress across all COTW maps. Log kills, diamonds, rares, trolls, and Great Ones!</p>
                     <button onclick="startGrind()" class="bg-green-600 hover:bg-green-700 px-8 py-3 rounded-lg font-semibold text-white shadow-lg">
                         Start Your First Grind
                     </button>
                 </div>
 
-                <!-- Grind Setup (Initially Hidden) -->
+                <!-- Grind Setup -->
                 <div id="grind-setup" class="hidden-section bg-slate-800 rounded-lg p-6 border border-slate-700">
                     <h3 class="text-xl font-semibold mb-4 text-green-400">New Grind Setup</h3>
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium mb-2">Species</label>
                             <select id="species-select" class="w-full p-2 bg-slate-700 border border-slate-600 rounded text-white">
-                                <option value="Whitetail Deer">Whitetail Deer</option>
-                                <option value="Red Deer">Red Deer</option>
+                                <option value="Whitetail Deer">Whitetail Deer (GO)</option>
+                                <option value="Red Deer">Red Deer (GO)</option>
+                                <option value="Black Bear">Black Bear (GO)</option>
+                                <option value="Moose">Moose (GO)</option>
+                                <option value="Fallow Deer">Fallow Deer (GO)</option>
+                                <option value="Red Fox">Red Fox (GO)</option>
+                                <option value="Ring-Necked Pheasant">Ring-Necked Pheasant (GO)</option>
+                                <option value="Himalayan Tahr">Himalayan Tahr (GO)</option>
                                 <option value="Roe Deer">Roe Deer</option>
                                 <option value="Mule Deer">Mule Deer</option>
-                                <option value="Black Bear">Black Bear</option>
                                 <option value="Brown Bear">Brown Bear</option>
                                 <option value="Wild Boar">Wild Boar</option>
-                                <option value="Moose">Moose</option>
-                                <option value="Fallow Deer">Fallow Deer</option>
-                                <option value="Red Fox">Red Fox</option>
+                                <option value="European Bison">European Bison</option>
+                                <option value="Plains Bison">Plains Bison</option>
+                                <option value="Roosevelt Elk">Roosevelt Elk</option>
+                                <option value="Rocky Mountain Elk">Rocky Mountain Elk</option>
+                                <option value="Caribou">Caribou</option>
+                                <option value="Reindeer">Reindeer</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-2">Map</label>
                             <select id="map-select" class="w-full p-2 bg-slate-700 border border-slate-600 rounded text-white">
-                                <option value="Layton Lake">Layton Lake District</option>
-                                <option value="Hirschfelden">Hirschfelden Hunting Reserve</option>
-                                <option value="Medved">Medved-Taiga National Park</option>
-                                <option value="Vurhonga">Vurhonga Savanna</option>
+                                <option value="Layton Lake District">Layton Lake District</option>
+                                <option value="Hirschfelden Hunting Reserve">Hirschfelden Hunting Reserve</option>
+                                <option value="Medved-Taiga National Park">Medved-Taiga National Park</option>
+                                <option value="Vurhonga Savanna">Vurhonga Savanna</option>
                                 <option value="Parque Fernando">Parque Fernando</option>
                                 <option value="Yukon Valley">Yukon Valley</option>
-                                <option value="Cuatro Colinas">Cuatro Colinas Game Reserve</option>
-                                <option value="Silver Ridge">Silver Ridge Peaks</option>
+                                <option value="Cuatro Colinas Game Reserve">Cuatro Colinas Game Reserve</option>
+                                <option value="Silver Ridge Peaks">Silver Ridge Peaks</option>
+                                <option value="Te Awaroa National Park">Te Awaroa National Park</option>
+                                <option value="Rancho del Arroyo">Rancho del Arroyo</option>
+                                <option value="Mississippi Acres Preserve">Mississippi Acres Preserve</option>
+                                <option value="Revontuli Coast">Revontuli Coast</option>
                             </select>
                         </div>
                         <button onclick="createGrind()" class="w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-semibold">
@@ -79,7 +91,7 @@
                     </div>
                 </div>
 
-                <!-- Active Grind (Initially Hidden) -->
+                <!-- Active Grind -->
                 <div id="active-grind" class="hidden-section bg-slate-800 rounded-lg p-6 border border-slate-700">
                     <div class="flex justify-between items-center mb-4">
                         <div>
@@ -89,23 +101,47 @@
                         <button onclick="endGrind()" class="text-red-400 hover:text-red-300 text-sm">End Grind</button>
                     </div>
                     
-                    <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
                         <div class="text-center">
-                            <div id="kill-count" class="text-2xl font-bold">0</div>
-                            <div class="text-sm text-slate-400">Kills</div>
+                            <div id="kill-count" class="text-xl font-bold">0</div>
+                            <div class="text-xs text-slate-400">Kills</div>
                         </div>
                         <div class="text-center">
-                            <div id="diamond-count" class="text-2xl font-bold text-yellow-400">0</div>
-                            <div class="text-sm text-slate-400">Diamonds</div>
+                            <div id="diamond-count" class="text-xl font-bold text-yellow-400">0</div>
+                            <div class="text-xs text-slate-400">Diamonds</div>
                         </div>
                     </div>
                     
-                    <div class="grid grid-cols-2 gap-3">
-                        <button onclick="addKill()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded font-semibold">
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="text-center">
+                            <div id="rare-count" class="text-xl font-bold text-purple-400">0</div>
+                            <div class="text-xs text-slate-400">Rares</div>
+                        </div>
+                        <div class="text-center">
+                            <div id="troll-count" class="text-xl font-bold text-red-400">0</div>
+                            <div class="text-xs text-slate-400">Trolls</div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <button onclick="addKill()" class="bg-blue-600 hover:bg-blue-700 px-3 py-2 rounded text-sm font-semibold">
                             + Kill
                         </button>
-                        <button onclick="addDiamond()" class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded font-semibold">
+                        <button onclick="addDiamond()" class="bg-yellow-600 hover:bg-yellow-700 px-3 py-2 rounded text-sm font-semibold">
                             + Diamond
+                        </button>
+                        <button onclick="addRare()" class="bg-purple-600 hover:bg-purple-700 px-3 py-2 rounded text-sm font-semibold">
+                            + Rare
+                        </button>
+                        <button onclick="addTroll()" class="bg-red-600 hover:bg-red-700 px-3 py-2 rounded text-sm font-semibold">
+                            + Troll
+                        </button>
+                    </div>
+                    
+                    <!-- Great One Button (only for GO species) -->
+                    <div id="go-section" class="hidden-section">
+                        <button onclick="markGO()" id="go-button" class="w-full bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700 px-4 py-3 rounded-lg font-bold text-black shadow-lg">
+                            🏆 MARK GREAT ONE! 🏆
                         </button>
                     </div>
                 </div>
@@ -113,14 +149,22 @@
                 <!-- Stats Section -->
                 <div class="bg-slate-800 rounded-lg p-4 border border-slate-700">
                     <h3 class="text-lg font-semibold mb-3 text-green-400">Overall Stats</h3>
-                    <div class="grid grid-cols-2 gap-4 text-center">
+                    <div class="grid grid-cols-2 gap-4 text-center text-sm">
                         <div>
-                            <div id="total-kills" class="text-2xl font-bold">0</div>
-                            <div class="text-sm text-slate-400">Total Kills</div>
+                            <div id="total-kills" class="text-xl font-bold">0</div>
+                            <div class="text-xs text-slate-400">Total Kills</div>
                         </div>
                         <div>
-                            <div id="total-diamonds" class="text-2xl font-bold text-yellow-400">0</div>
-                            <div class="text-sm text-slate-400">Total Diamonds</div>
+                            <div id="total-diamonds" class="text-xl font-bold text-yellow-400">0</div>
+                            <div class="text-xs text-slate-400">Diamonds</div>
+                        </div>
+                        <div>
+                            <div id="total-rares" class="text-xl font-bold text-purple-400">0</div>
+                            <div class="text-xs text-slate-400">Rares</div>
+                        </div>
+                        <div>
+                            <div id="total-gos" class="text-xl font-bold text-amber-400">0</div>
+                            <div class="text-xs text-slate-400">Great Ones</div>
                         </div>
                     </div>
                 </div>
@@ -132,10 +176,16 @@
         let currentGrind = null;
         let totalKills = parseInt(localStorage.getItem('totalKills') || '0');
         let totalDiamonds = parseInt(localStorage.getItem('totalDiamonds') || '0');
+        let totalRares = parseInt(localStorage.getItem('totalRares') || '0');
+        let totalGOs = parseInt(localStorage.getItem('totalGOs') || '0');
+        
+        const goSpecies = ['Whitetail Deer', 'Red Deer', 'Black Bear', 'Moose', 'Fallow Deer', 'Red Fox', 'Ring-Necked Pheasant', 'Himalayan Tahr'];
         
         function updateStats() {
             document.getElementById('total-kills').textContent = totalKills;
             document.getElementById('total-diamonds').textContent = totalDiamonds;
+            document.getElementById('total-rares').textContent = totalRares;
+            document.getElementById('total-gos').textContent = totalGOs;
         }
         
         function startGrind() {
@@ -152,13 +202,24 @@
                 map: map,
                 kills: 0,
                 diamonds: 0,
-                startTime: new Date()
+                rares: 0,
+                trolls: 0,
+                goHarvested: false
             };
             
             document.getElementById('grind-title').textContent = species;
             document.getElementById('grind-map').textContent = map;
             document.getElementById('kill-count').textContent = '0';
             document.getElementById('diamond-count').textContent = '0';
+            document.getElementById('rare-count').textContent = '0';
+            document.getElementById('troll-count').textContent = '0';
+            
+            // Show GO button only for GO species
+            if (goSpecies.includes(species)) {
+                document.getElementById('go-section').style.display = 'block';
+            } else {
+                document.getElementById('go-section').style.display = 'none';
+            }
             
             document.getElementById('grind-setup').style.display = 'none';
             document.getElementById('active-grind').style.display = 'block';
@@ -184,13 +245,41 @@
             }
         }
         
+        function addRare() {
+            if (currentGrind) {
+                currentGrind.rares++;
+                totalRares++;
+                document.getElementById('rare-count').textContent = currentGrind.rares;
+                updateStats();
+                localStorage.setItem('totalRares', totalRares.toString());
+            }
+        }
+        
+        function addTroll() {
+            if (currentGrind) {
+                currentGrind.trolls++;
+                document.getElementById('troll-count').textContent = currentGrind.trolls;
+            }
+        }
+        
+        function markGO() {
+            if (currentGrind && !currentGrind.goHarvested) {
+                currentGrind.goHarvested = true;
+                totalGOs++;
+                updateStats();
+                localStorage.setItem('totalGOs', totalGOs.toString());
+                document.getElementById('go-button').textContent = '✅ GREAT ONE HARVESTED! ✅';
+                document.getElementById('go-button').disabled = true;
+                document.getElementById('go-button').classList.add('opacity-50');
+            }
+        }
+        
         function endGrind() {
             currentGrind = null;
             document.getElementById('active-grind').style.display = 'none';
             document.getElementById('welcome-section').style.display = 'block';
         }
         
-        // Initialize when page loads
         window.onload = function() {
             updateStats();
         }
