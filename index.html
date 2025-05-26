@@ -20,7 +20,7 @@
         button:hover {
             transform: translateY(-1px);
         }
-        .hidden { display: none; }
+        .hidden-section { display: none; }
     </style>
 </head>
 <body>
@@ -42,59 +42,5 @@
                 </div>
 
                 <!-- Grind Setup (Initially Hidden) -->
-                <div id="grind-setup" class="hidden bg-slate-800 rounded-lg p-6 border border-slate-700">
-                    <h3 class="text-xl font-semibold mb-4 text-green-400">New Grind Setup</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Species</label>
-                            <select id="species-select" class="w-full p-2 bg-slate-700 border border-slate-600 rounded text-white">
-                                <option value="Whitetail Deer">Whitetail Deer</option>
-                                <option value="Red Deer">Red Deer</option>
-                                <option value="Roe Deer">Roe Deer</option>
-                                <option value="Mule Deer">Mule Deer</option>
-                                <option value="Black Bear">Black Bear</option>
-                                <option value="Brown Bear">Brown Bear</option>
-                                <option value="Wild Boar">Wild Boar</option>
-                                <option value="Moose">Moose</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Map</label>
-                            <select id="map-select" class="w-full p-2 bg-slate-700 border border-slate-600 rounded text-white">
-                                <option value="Layton Lake">Layton Lake District</option>
-                                <option value="Hirschfelden">Hirschfelden Hunting Reserve</option>
-                                <option value="Medved">Medved-Taiga National Park</option>
-                                <option value="Vurhonga">Vurhonga Savanna</option>
-                                <option value="Parque Fernando">Parque Fernando</option>
-                                <option value="Yukon Valley">Yukon Valley</option>
-                            </select>
-                        </div>
-                        <button onclick="createGrind()" class="w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-semibold">
-                            Create Grind
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Active Grind (Initially Hidden) -->
-                <div id="active-grind" class="hidden bg-slate-800 rounded-lg p-6 border border-slate-700">
-                    <div class="flex justify-between items-center mb-4">
-                        <div>
-                            <h3 id="grind-title" class="text-lg font-semibold text-green-400"></h3>
-                            <p id="grind-map" class="text-sm text-slate-400"></p>
-                        </div>
-                        <button onclick="endGrind()" class="text-red-400 hover:text-red-300 text-sm">End Grind</button>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-4 mb-6">
-                        <div class="text-center">
-                            <div id="kill-count" class="text-2xl font-bold">0</div>
-                            <div class="text-sm text-slate-400">Kills</div>
-                        </div>
-                        <div class="text-center">
-                            <div id="diamond-count" class="text-2xl font-bold text-yellow-400">0</div>
-                            <div class="text-sm text-slate-400">Diamonds</div>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-3">
-                        <button onclick="addKill()" class
+                <div id="grind-setup" class="hidden-section bg-slate-800 rounded-lg p-6 border border-slate-700">
+                    <h3 class="text-xl font-semibold mb-4
