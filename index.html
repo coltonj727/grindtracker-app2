@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HeadHunter Tracker - COTW Grind Tracker</title>
     <meta name="description" content="Track your Call of the Wild hunting progress with HeadHunter Tracker. Log kills, diamonds, rares, and Great Ones across all maps.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            background-color: rgb(15 23 42);
+            color: rgb(248 250 252);
+            font-family: system-ui, sans-serif;
+        }
+        button {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        button:hover {
+            transform: translateY(-1px);
+        }
+    </style>
 </head>
 <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div class="min-h-screen bg-slate-900 text-white">
+        <header class="bg-slate-800 p-4 shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-green-400">HeadHunter Tracker</h1>
+            <p class="text-center text-slate-300 mt-2">Call of the Wild Grind Tracker</p>
+        </header>
+        
+        <main class="p-4">
+            <div class="max-w-md mx-auto space-y-6">
+                <div class="bg-slate-800 rounded-lg p-6 text-center border border-slate-700">
+                    <h2 class="text-2xl mb-4 text-green-400">Welcome Hunter!</h2>
+                    <p class="text-slate-300 mb-6">Track your hunting progress across all COTW maps. Log kills, diamonds, rares, and Great Ones!</p>
+                    <button class="bg-green-600 hover:bg-green-700 px-8 py-3 rounded-lg font-semibold text-white shadow-lg">
+                        Start Your First Grind
+                    </button>
+                </div>
+                
+                <div class="bg-slate-800 rounded-lg p-4 border border-slate-700">
+                    <h3 class="text-lg font-semibold mb-3 text-green-400">Quick Stats</h3>
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div>
+                            <div class="text-2xl font-bold">0</div>
+                            <div class="text-sm text-slate-400">Total Kills</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-yellow-400">0</div>
+                            <div class="text-sm text-slate-400">Diamonds</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 </body>
 </html>
