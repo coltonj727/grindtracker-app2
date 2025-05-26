@@ -46,31 +46,9 @@
                     <h3 class="text-xl font-semibold mb-4 text-green-400">New Grind Setup</h3>
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium mb-2">Species</label>
-                            <select id="species-select" class="w-full p-2 bg-slate-700 border border-slate-600 rounded text-white">
-                                <option value="Whitetail Deer">Whitetail Deer (GO)</option>
-                                <option value="Red Deer">Red Deer (GO)</option>
-                                <option value="Black Bear">Black Bear (GO)</option>
-                                <option value="Moose">Moose (GO)</option>
-                                <option value="Fallow Deer">Fallow Deer (GO)</option>
-                                <option value="Red Fox">Red Fox (GO)</option>
-                                <option value="Ring-Necked Pheasant">Ring-Necked Pheasant (GO)</option>
-                                <option value="Himalayan Tahr">Himalayan Tahr (GO)</option>
-                                <option value="Roe Deer">Roe Deer</option>
-                                <option value="Mule Deer">Mule Deer</option>
-                                <option value="Brown Bear">Brown Bear</option>
-                                <option value="Wild Boar">Wild Boar</option>
-                                <option value="European Bison">European Bison</option>
-                                <option value="Plains Bison">Plains Bison</option>
-                                <option value="Roosevelt Elk">Roosevelt Elk</option>
-                                <option value="Rocky Mountain Elk">Rocky Mountain Elk</option>
-                                <option value="Caribou">Caribou</option>
-                                <option value="Reindeer">Reindeer</option>
-                            </select>
-                        </div>
-                        <div>
                             <label class="block text-sm font-medium mb-2">Map</label>
-                            <select id="map-select" class="w-full p-2 bg-slate-700 border border-slate-600 rounded text-white">
+                            <select id="map-select" onchange="updateSpeciesList()" class="w-full p-2 bg-slate-700 border border-slate-600 rounded text-white">
+                                <option value="">Select Map First</option>
                                 <option value="Layton Lake District">Layton Lake District</option>
                                 <option value="Hirschfelden Hunting Reserve">Hirschfelden Hunting Reserve</option>
                                 <option value="Medved-Taiga National Park">Medved-Taiga National Park</option>
@@ -83,6 +61,12 @@
                                 <option value="Rancho del Arroyo">Rancho del Arroyo</option>
                                 <option value="Mississippi Acres Preserve">Mississippi Acres Preserve</option>
                                 <option value="Revontuli Coast">Revontuli Coast</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Species</label>
+                            <select id="species-select" class="w-full p-2 bg-slate-700 border border-slate-600 rounded text-white">
+                                <option value="">Select Map First</option>
                             </select>
                         </div>
                         <button onclick="createGrind()" class="w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-semibold">
@@ -138,7 +122,7 @@
                         </button>
                     </div>
                     
-                    <!-- Great One Button (only for GO species) -->
+                    <!-- Great One Button -->
                     <div id="go-section" class="hidden-section">
                         <button onclick="markGO()" id="go-button" class="w-full bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700 px-4 py-3 rounded-lg font-bold text-black shadow-lg">
                             🏆 MARK GREAT ONE! 🏆
@@ -179,7 +163,75 @@
         let totalRares = parseInt(localStorage.getItem('totalRares') || '0');
         let totalGOs = parseInt(localStorage.getItem('totalGOs') || '0');
         
-        const goSpecies = ['Whitetail Deer', 'Red Deer', 'Black Bear', 'Moose', 'Fallow Deer', 'Red Fox', 'Ring-Necked Pheasant', 'Himalayan Tahr'];
+        const goSpecies = ['Whitetail Deer (GO)', 'Red Deer (GO)', 'Black Bear (GO)', 'Moose (GO)', 'Fallow Deer (GO)', 'Red Fox (GO)', 'Ring-Necked Pheasant (GO)', 'Himalayan Tahr (GO)'];
+        
+        const mapSpecies = {
+            "Layton Lake District": [
+                "Whitetail Deer (GO)", "Black Bear (GO)", "Roosevelt Elk", "Blacktail Deer", 
+                "Wild Turkey", "Mountain Goat", "Black Duck", "Canada Goose"
+            ],
+            "Hirschfelden Hunting Reserve": [
+                "Red Deer (GO)", "Roe Deer", "Wild Boar", "European Bison", 
+                "Brown Bear", "Fallow Deer (GO)", "Red Fox (GO)", "Greylag Goose"
+            ],
+            "Medved-Taiga National Park": [
+                "Moose (GO)", "Brown Bear", "Lynx", "Wild Boar", 
+                "Roe Deer", "Wood Duck", "Black Grouse", "Hazel Grouse"
+            ],
+            "Vurhonga Savanna": [
+                "Cape Buffalo", "Lion", "Blue Wildebeest", "Gemsbok", 
+                "Greater Kudu", "Plains Zebra", "Springbok", "Warthog"
+            ],
+            "Parque Fernando": [
+                "Red Deer", "Wild Boar", "Southeastern Spanish Ibex", "Roe Deer",
+                "European Rabbit", "Red-legged Partridge", "Gredos Ibex"
+            ],
+            "Yukon Valley": [
+                "Moose", "Grizzly Bear", "Caribou", "Dall Sheep", 
+                "Mountain Goat", "Gray Wolf", "Lynx", "Ptarmigan"
+            ],
+            "Cuatro Colinas Game Reserve": [
+                "Puma", "Red Deer", "Axis Deer", "Blackbuck", 
+                "Wild Boar", "Water Buffalo", "Feral Goat", "Feral Pig"
+            ],
+            "Silver Ridge Peaks": [
+                "Rocky Mountain Elk", "Mule Deer", "White-tailed Ptarmigan", "Bighorn Sheep",
+                "Mountain Goat", "Black Bear", "Gray Wolf", "Pronghorn"
+            ],
+            "Te Awaroa National Park": [
+                "Red Deer", "Himalayan Tahr (GO)", "Feral Pig", "Feral Goat",
+                "Sika Deer", "Chamois", "European Rabbit", "Mallard"
+            ],
+            "Rancho del Arroyo": [
+                "Mule Deer", "White-tailed Deer", "Collared Peccary", "Wild Turkey",
+                "Rio Grande Turkey", "Cinnamon Teal", "Ring-necked Duck"
+            ],
+            "Mississippi Acres Preserve": [
+                "Whitetail Deer", "Ring-Necked Pheasant (GO)", "Wild Turkey", "Wood Duck",
+                "Raccoon", "American Alligator", "Bobcat"
+            ],
+            "Revontuli Coast": [
+                "Reindeer", "Brown Bear", "Lynx", "Rock Ptarmigan",
+                "Willow Ptarmigan", "Bean Goose"
+            ]
+        };
+        
+        function updateSpeciesList() {
+            const mapSelect = document.getElementById('map-select');
+            const speciesSelect = document.getElementById('species-select');
+            const selectedMap = mapSelect.value;
+            
+            speciesSelect.innerHTML = '<option value="">Select Species</option>';
+            
+            if (selectedMap && mapSpecies[selectedMap]) {
+                mapSpecies[selectedMap].forEach(species => {
+                    const option = document.createElement('option');
+                    option.value = species;
+                    option.textContent = species;
+                    speciesSelect.appendChild(option);
+                });
+            }
+        }
         
         function updateStats() {
             document.getElementById('total-kills').textContent = totalKills;
@@ -196,6 +248,11 @@
         function createGrind() {
             const species = document.getElementById('species-select').value;
             const map = document.getElementById('map-select').value;
+            
+            if (!species || !map) {
+                alert('Please select both map and species!');
+                return;
+            }
             
             currentGrind = {
                 species: species,
@@ -214,9 +271,11 @@
             document.getElementById('rare-count').textContent = '0';
             document.getElementById('troll-count').textContent = '0';
             
-            // Show GO button only for GO species
             if (goSpecies.includes(species)) {
                 document.getElementById('go-section').style.display = 'block';
+                document.getElementById('go-button').textContent = '🏆 MARK GREAT ONE! 🏆';
+                document.getElementById('go-button').disabled = false;
+                document.getElementById('go-button').classList.remove('opacity-50');
             } else {
                 document.getElementById('go-section').style.display = 'none';
             }
