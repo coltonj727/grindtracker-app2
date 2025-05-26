@@ -43,4 +43,157 @@
 
                 <!-- Grind Setup (Initially Hidden) -->
                 <div id="grind-setup" class="hidden-section bg-slate-800 rounded-lg p-6 border border-slate-700">
-                    <h3 class="text-xl font-semibold mb-4
+                    <h3 class="text-xl font-semibold mb-4 text-green-400">New Grind Setup</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Species</label>
+                            <select id="species-select" class="w-full p-2 bg-slate-700 border border-slate-600 rounded text-white">
+                                <option value="Whitetail Deer">Whitetail Deer</option>
+                                <option value="Red Deer">Red Deer</option>
+                                <option value="Roe Deer">Roe Deer</option>
+                                <option value="Mule Deer">Mule Deer</option>
+                                <option value="Black Bear">Black Bear</option>
+                                <option value="Brown Bear">Brown Bear</option>
+                                <option value="Wild Boar">Wild Boar</option>
+                                <option value="Moose">Moose</option>
+                                <option value="Fallow Deer">Fallow Deer</option>
+                                <option value="Red Fox">Red Fox</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Map</label>
+                            <select id="map-select" class="w-full p-2 bg-slate-700 border border-slate-600 rounded text-white">
+                                <option value="Layton Lake">Layton Lake District</option>
+                                <option value="Hirschfelden">Hirschfelden Hunting Reserve</option>
+                                <option value="Medved">Medved-Taiga National Park</option>
+                                <option value="Vurhonga">Vurhonga Savanna</option>
+                                <option value="Parque Fernando">Parque Fernando</option>
+                                <option value="Yukon Valley">Yukon Valley</option>
+                                <option value="Cuatro Colinas">Cuatro Colinas Game Reserve</option>
+                                <option value="Silver Ridge">Silver Ridge Peaks</option>
+                            </select>
+                        </div>
+                        <button onclick="createGrind()" class="w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-semibold">
+                            Create Grind
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Active Grind (Initially Hidden) -->
+                <div id="active-grind" class="hidden-section bg-slate-800 rounded-lg p-6 border border-slate-700">
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <h3 id="grind-title" class="text-lg font-semibold text-green-400"></h3>
+                            <p id="grind-map" class="text-sm text-slate-400"></p>
+                        </div>
+                        <button onclick="endGrind()" class="text-red-400 hover:text-red-300 text-sm">End Grind</button>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="text-center">
+                            <div id="kill-count" class="text-2xl font-bold">0</div>
+                            <div class="text-sm text-slate-400">Kills</div>
+                        </div>
+                        <div class="text-center">
+                            <div id="diamond-count" class="text-2xl font-bold text-yellow-400">0</div>
+                            <div class="text-sm text-slate-400">Diamonds</div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="addKill()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded font-semibold">
+                            + Kill
+                        </button>
+                        <button onclick="addDiamond()" class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded font-semibold">
+                            + Diamond
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Stats Section -->
+                <div class="bg-slate-800 rounded-lg p-4 border border-slate-700">
+                    <h3 class="text-lg font-semibold mb-3 text-green-400">Overall Stats</h3>
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div>
+                            <div id="total-kills" class="text-2xl font-bold">0</div>
+                            <div class="text-sm text-slate-400">Total Kills</div>
+                        </div>
+                        <div>
+                            <div id="total-diamonds" class="text-2xl font-bold text-yellow-400">0</div>
+                            <div class="text-sm text-slate-400">Total Diamonds</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let currentGrind = null;
+        let totalKills = parseInt(localStorage.getItem('totalKills') || '0');
+        let totalDiamonds = parseInt(localStorage.getItem('totalDiamonds') || '0');
+        
+        function updateStats() {
+            document.getElementById('total-kills').textContent = totalKills;
+            document.getElementById('total-diamonds').textContent = totalDiamonds;
+        }
+        
+        function startGrind() {
+            document.getElementById('welcome-section').style.display = 'none';
+            document.getElementById('grind-setup').style.display = 'block';
+        }
+        
+        function createGrind() {
+            const species = document.getElementById('species-select').value;
+            const map = document.getElementById('map-select').value;
+            
+            currentGrind = {
+                species: species,
+                map: map,
+                kills: 0,
+                diamonds: 0,
+                startTime: new Date()
+            };
+            
+            document.getElementById('grind-title').textContent = species;
+            document.getElementById('grind-map').textContent = map;
+            document.getElementById('kill-count').textContent = '0';
+            document.getElementById('diamond-count').textContent = '0';
+            
+            document.getElementById('grind-setup').style.display = 'none';
+            document.getElementById('active-grind').style.display = 'block';
+        }
+        
+        function addKill() {
+            if (currentGrind) {
+                currentGrind.kills++;
+                totalKills++;
+                document.getElementById('kill-count').textContent = currentGrind.kills;
+                updateStats();
+                localStorage.setItem('totalKills', totalKills.toString());
+            }
+        }
+        
+        function addDiamond() {
+            if (currentGrind) {
+                currentGrind.diamonds++;
+                totalDiamonds++;
+                document.getElementById('diamond-count').textContent = currentGrind.diamonds;
+                updateStats();
+                localStorage.setItem('totalDiamonds', totalDiamonds.toString());
+            }
+        }
+        
+        function endGrind() {
+            currentGrind = null;
+            document.getElementById('active-grind').style.display = 'none';
+            document.getElementById('welcome-section').style.display = 'block';
+        }
+        
+        // Initialize when page loads
+        window.onload = function() {
+            updateStats();
+        }
+    </script>
+</body>
+</html>
