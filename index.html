@@ -61,6 +61,9 @@
                                 <option value="Rancho del Arroyo">Rancho del Arroyo</option>
                                 <option value="Mississippi Acres Preserve">Mississippi Acres Preserve</option>
                                 <option value="Revontuli Coast">Revontuli Coast</option>
+                                <option value="New England Mountains">New England Mountains</option>
+                                <option value="Emerald Coast Australia">Emerald Coast Australia</option>
+                                <option value="Sundarpatan Nepal">Sundarpatan Nepal</option>
                             </select>
                         </div>
                         <div>
@@ -163,57 +166,24 @@
         let totalRares = parseInt(localStorage.getItem('totalRares') || '0');
         let totalGOs = parseInt(localStorage.getItem('totalGOs') || '0');
         
-        const goSpecies = ['Whitetail Deer (GO)', 'Red Deer (GO)', 'Black Bear (GO)', 'Moose (GO)', 'Fallow Deer (GO)', 'Red Fox (GO)', 'Ring-Necked Pheasant (GO)', 'Himalayan Tahr (GO)'];
+        const goSpecies = ['Whitetail Deer', 'Red Deer', 'Black Bear', 'Moose', 'Fallow Deer', 'Red Fox', 'Ring-Necked Pheasant', 'Himalayan Tahr'];
         
         const mapSpecies = {
-            "Layton Lake District": [
-                "Whitetail Deer (GO)", "Black Bear (GO)", "Roosevelt Elk", "Blacktail Deer", 
-                "Wild Turkey", "Mountain Goat", "Black Duck", "Canada Goose"
-            ],
-            "Hirschfelden Hunting Reserve": [
-                "Red Deer (GO)", "Roe Deer", "Wild Boar", "European Bison", 
-                "Brown Bear", "Fallow Deer (GO)", "Red Fox (GO)", "Greylag Goose"
-            ],
-            "Medved-Taiga National Park": [
-                "Moose (GO)", "Brown Bear", "Lynx", "Wild Boar", 
-                "Roe Deer", "Wood Duck", "Black Grouse", "Hazel Grouse"
-            ],
-            "Vurhonga Savanna": [
-                "Cape Buffalo", "Lion", "Blue Wildebeest", "Gemsbok", 
-                "Greater Kudu", "Plains Zebra", "Springbok", "Warthog"
-            ],
-            "Parque Fernando": [
-                "Red Deer", "Wild Boar", "Southeastern Spanish Ibex", "Roe Deer",
-                "European Rabbit", "Red-legged Partridge", "Gredos Ibex"
-            ],
-            "Yukon Valley": [
-                "Moose", "Grizzly Bear", "Caribou", "Dall Sheep", 
-                "Mountain Goat", "Gray Wolf", "Lynx", "Ptarmigan"
-            ],
-            "Cuatro Colinas Game Reserve": [
-                "Puma", "Red Deer", "Axis Deer", "Blackbuck", 
-                "Wild Boar", "Water Buffalo", "Feral Goat", "Feral Pig"
-            ],
-            "Silver Ridge Peaks": [
-                "Rocky Mountain Elk", "Mule Deer", "White-tailed Ptarmigan", "Bighorn Sheep",
-                "Mountain Goat", "Black Bear", "Gray Wolf", "Pronghorn"
-            ],
-            "Te Awaroa National Park": [
-                "Red Deer", "Himalayan Tahr (GO)", "Feral Pig", "Feral Goat",
-                "Sika Deer", "Chamois", "European Rabbit", "Mallard"
-            ],
-            "Rancho del Arroyo": [
-                "Mule Deer", "White-tailed Deer", "Collared Peccary", "Wild Turkey",
-                "Rio Grande Turkey", "Cinnamon Teal", "Ring-necked Duck"
-            ],
-            "Mississippi Acres Preserve": [
-                "Whitetail Deer", "Ring-Necked Pheasant (GO)", "Wild Turkey", "Wood Duck",
-                "Raccoon", "American Alligator", "Bobcat"
-            ],
-            "Revontuli Coast": [
-                "Reindeer", "Brown Bear", "Lynx", "Rock Ptarmigan",
-                "Willow Ptarmigan", "Bean Goose"
-            ]
+            "Layton Lake District": ["Whitetail Deer", "Black Bear", "Roosevelt Elk", "Blacktail Deer", "Wild Turkey", "Mountain Goat", "Black Duck", "Canada Goose"],
+            "Hirschfelden Hunting Reserve": ["Red Deer", "Roe Deer", "Wild Boar", "European Bison", "Brown Bear", "Fallow Deer", "Red Fox", "Greylag Goose"],
+            "Medved-Taiga National Park": ["Moose", "Brown Bear", "Lynx", "Wild Boar", "Roe Deer", "Wood Duck", "Black Grouse", "Hazel Grouse"],
+            "Vurhonga Savanna": ["Cape Buffalo", "Lion", "Blue Wildebeest", "Gemsbok", "Greater Kudu", "Plains Zebra", "Springbok", "Warthog"],
+            "Parque Fernando": ["Red Deer", "Wild Boar", "Southeastern Spanish Ibex", "Roe Deer", "European Rabbit", "Red-legged Partridge", "Gredos Ibex"],
+            "Yukon Valley": ["Moose", "Grizzly Bear", "Caribou", "Dall Sheep", "Mountain Goat", "Gray Wolf", "Lynx", "Ptarmigan"],
+            "Cuatro Colinas Game Reserve": ["Puma", "Red Deer", "Axis Deer", "Blackbuck", "Wild Boar", "Water Buffalo", "Feral Goat", "Feral Pig"],
+            "Silver Ridge Peaks": ["Rocky Mountain Elk", "Mule Deer", "White-tailed Ptarmigan", "Bighorn Sheep", "Mountain Goat", "Black Bear", "Gray Wolf", "Pronghorn"],
+            "Te Awaroa National Park": ["Red Deer", "Himalayan Tahr", "Feral Pig", "Feral Goat", "Sika Deer", "Chamois", "European Rabbit", "Mallard"],
+            "Rancho del Arroyo": ["Antelope Jackrabbit", "Bighorn Sheep", "Collared Peccary", "Coyote", "Mexican Bobcat", "Mule Deer", "Pronghorn Antelope", "Ring-Necked Pheasant", "Rio Grande Turkey", "Whitetail Deer"],
+            "Mississippi Acres Preserve": ["American Alligator", "Black Bear", "Bobwhite Quail", "Common Raccoon", "Eastern Wild Turkey", "Gray Fox", "Whitetail Deer", "Wild Hog"],
+            "Revontuli Coast": ["Canada Goose", "Eurasian Brown Bear", "Eurasian Lynx", "Eurasian Teal", "Eurasian Wigeon", "Goldeneye", "Graylag Goose", "Hazel Grouse", "Mallard", "Moose", "Mountain Hare", "Raccoon Dog", "Red Fox", "Rock Ptarmigan", "Tundra Bean Goose", "Western Capercaillie", "Whitetail Deer", "Willow Ptarmigan"],
+            "New England Mountains": ["Black Bear", "Bobcat", "Bobwhite Quail", "Common Raccoon", "Coyote", "Eastern Cottontail Rabbit", "Eastern Wild Turkey", "Goldeneye", "Gray Fox", "Green-Winged Teal", "Mallard", "Moose", "Red Fox", "Ring-Necked Pheasant", "Whitetail Deer"],
+            "Emerald Coast Australia": ["Axis Deer", "Banteng", "Eastern Grey Kangaroo", "Fallow Deer", "Feral Goat", "Feral Pig", "Hog Deer", "Javan Rusa", "Magpie Goose", "Red Deer", "Red Fox", "Sambar Deer", "Saltwater Crocodile", "Stubble Quail"],
+            "Sundarpatan Nepal": ["Barasingha", "Bengal Tiger", "Blue Sheep", "Nilgai", "Snow Leopard", "Tahr", "Water Buffalo", "Wild Yak"]
         };
         
         function updateSpeciesList() {
